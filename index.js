@@ -20,7 +20,13 @@ const run = async () => {
     await client.connect();
     const stockCollection = client.db("groceryStock").collection("items");
 
-   
+    // get all items
+    app.get("/items", async (req, res) => {
+      const find = stockCollection.find({});
+      const result = await find.toArray();
+      res.send(result);
+    });
+
     console.log("db connected");
   } finally {
   }
