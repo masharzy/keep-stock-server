@@ -26,6 +26,13 @@ const run = async () => {
       const result = await find.toArray();
       res.send(result);
     });
+    
+    // get item by id
+    app.get("/item/:id", async (req, res) => {
+      const find = stockCollection.findOne({ _id: ObjectId(req.params.id) });
+      const result = await find;
+      res.send(result);
+    });
 
     console.log("db connected");
   } finally {
