@@ -63,6 +63,13 @@ const run = async () => {
       res.send(result);
     });
 
+    // get items by email
+    app.get("/items/:email", async (req, res) => {
+      const filter = { email: req.params.email };
+      const result = await stockCollection.find(filter).toArray();
+      res.send(result);
+    });
+
     console.log("db connected");
   } finally {
   }
