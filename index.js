@@ -41,6 +41,21 @@ const run = async () => {
       res.send(result);
     });
 
+    // update a existing item
+    app.put("/item/:id", async (req, res) => {
+      const filter = { _id: ObjectId(req.params.id) };
+      const options = { upsert: true };
+      const updatedDoc = {
+        $set: req.body,
+      };
+      const result = await stockCollection.updateOne(
+        filter,
+        updatedDoc,
+        options
+      );
+      res.send(result);
+    });
+
     console.log("db connected");
   } finally {
   }
