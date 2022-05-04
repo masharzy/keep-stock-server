@@ -20,42 +20,7 @@ const run = async () => {
     await client.connect();
     const stockCollection = client.db("groceryStock").collection("items");
 
-    // get all items
-    app.get("/items", async (req, res) => {
-      const find = stockCollection.find({});
-      const result = await find.toArray();
-      res.send(result);
-    });
-
-    // post a new item
-    app.post("/items", async (req, res) => {
-      const doc = req.body;
-      const result = await stockCollection.insertOne(doc);
-      res.send(result);
-    });
-
-    // update a existing item
-    app.put("/item/:id", async (req, res) => {
-      const filter = { _id: ObjectId(req.params.id) };
-      const options = { upsert: true };
-      const updatedDoc = {
-        $set: req.body,
-      };
-      const result = await stockCollection.updateOne(
-        filter,
-        updatedDoc,
-        options
-      );
-      res.send(result);
-    });
-
-    // delete a item
-    app.delete("/item/:id", async (req, res) => {
-      const filter = { _id: ObjectId(req.params.id) };
-      const result = await stockCollection.deleteOne(filter);
-      res.send(result);
-    });
-
+   
     console.log("db connected");
   } finally {
   }
@@ -70,5 +35,3 @@ app.get("/", (req, res) => {
 app.listen(port, () => {
   console.log("Server is running on port: ", port);
 });
-
-// id, name, image, description, price, quantity, supplier name, sold,
