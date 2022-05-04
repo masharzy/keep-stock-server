@@ -56,6 +56,13 @@ const run = async () => {
       res.send(result);
     });
 
+    // delete a item
+    app.delete("/item/:id", async (req, res) => {
+      const filter = { _id: ObjectId(req.params.id) };
+      const result = await stockCollection.deleteOne(filter);
+      res.send(result);
+    });
+
     console.log("db connected");
   } finally {
   }
